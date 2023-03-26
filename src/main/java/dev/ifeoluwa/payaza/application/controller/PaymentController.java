@@ -39,7 +39,7 @@ public class PaymentController {
     @RequestMapping(value = "/deposit", method = RequestMethod.POST, produces = "application/json;version=1")
     public ResponseEntity<?> makeDeposit(@RequestBody DepositRequest request, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        depositResponse = retryablePaymentService.retryableInitializeDeposit(request, user.getEmail());
+        depositResponse = retryablePaymentService.retryableInitializeDeposit(request, request.getEmail());
         return new ResponseEntity<>(depositResponse, HttpStatus.OK);
     }
 
@@ -55,6 +55,5 @@ public class PaymentController {
     public ResponseEntity<?> paymentResponse() throws Exception {
         return new ResponseEntity<>(retryablePaymentService.retryVerifyTransaction(depositResponse.getData().getReference()),
                 HttpStatus.ACCEPTED);
-
     }
 }

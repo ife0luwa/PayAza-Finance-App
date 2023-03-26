@@ -2,6 +2,8 @@ package dev.ifeoluwa.payaza.application.service;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import dev.ifeoluwa.payaza.application.dto.DepositRequest;
@@ -37,6 +39,57 @@ class PaymentServiceTest {
     @MockBean
     private WalletService walletService;
 
+
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testInitializeDeposit5() {
+        // TODO: Complete this test.
+        //   Reason: R013 No inputs found that don't throw a trivial exception.
+        //   Diffblue Cover tried to run the arrange/act section, but the method under
+        //   test threw
+        //   java.lang.UnsupportedOperationException: Attempted to serialize java.lang.Class: dev.ifeoluwa.payaza.application.dto.DepositRequest. Forgot to register a type adapter?
+        //       at com.google.gson.internal.bind.TypeAdapters$1.write(TypeAdapters.java:75)
+        //       at com.google.gson.internal.bind.TypeAdapters$1.write(TypeAdapters.java:71)
+        //       at com.google.gson.TypeAdapter$1.write(TypeAdapter.java:191)
+        //       at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.write(TypeAdapterRuntimeTypeWrapper.java:69)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.write(ReflectiveTypeAdapterFactory.java:126)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.write(ReflectiveTypeAdapterFactory.java:244)
+        //       at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.write(TypeAdapterRuntimeTypeWrapper.java:69)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.write(ReflectiveTypeAdapterFactory.java:126)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.write(ReflectiveTypeAdapterFactory.java:244)
+        //       at com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper.write(TypeAdapterRuntimeTypeWrapper.java:69)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1.write(ReflectiveTypeAdapterFactory.java:126)
+        //       at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.write(ReflectiveTypeAdapterFactory.java:244)
+        //       at com.google.gson.Gson.toJson(Gson.java:747)
+        //       at com.google.gson.Gson.toJson(Gson.java:726)
+        //       at com.google.gson.Gson.toJson(Gson.java:681)
+        //       at com.google.gson.Gson.toJson(Gson.java:661)
+        //       at dev.ifeoluwa.payaza.application.service.PaymentService.initializeDeposit(PaymentService.java:75)
+        //   In order to prevent initializeDeposit(DepositRequest, String)
+        //   from throwing UnsupportedOperationException, add constructors or factory
+        //   methods that make it easier to construct fully initialized objects used in
+        //   initializeDeposit(DepositRequest, String).
+        //   See https://diff.blue/R013 to resolve this issue.
+
+        Wallet wallet = new Wallet();
+        wallet.setBalance(BigDecimal.valueOf(Long.MIN_VALUE));
+        wallet.setId(123L);
+        wallet.setLogsList(new ArrayList<>());
+
+        User user = new User();
+        user.setAccountNumber("42");
+        user.setEmail("jane.doe@example.org");
+        user.setId(123L);
+        user.setName("Name");
+        user.setPassword("iloveyou");
+        user.setRole(Roles.ADMIN);
+        user.setWallet(wallet);
+        when(userService.getByEmail((String) any())).thenReturn(user);
+        DepositRequest depositRequest = mock(DepositRequest.class);
+        doNothing().when(depositRequest).setAmount((BigDecimal) any());
+        when(depositRequest.getAmount()).thenReturn(BigDecimal.valueOf(42L));
+        paymentService.initializeDeposit(depositRequest, "jane.doe@example.org");
+    }
 
     @Test
     void testVerifyTransaction() {
