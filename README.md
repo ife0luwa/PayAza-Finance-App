@@ -20,8 +20,9 @@ The following technical details have been implemented in the application:
 ### Installation
 To run the application, follow the steps below:
 
-* Clone the repository from GitHub.
-* Run the mvn clean install command to install dependencies and build the application.
+* Clone the repository from GitHub
+* Set environment variables
+* Run the `mvn clean install` command to install dependencies and build the application.
 * Set up your Paystack account and API keys.
 * Set up ngrok for local testing and retrieve the callback URL.
 * Configure the application properties with the API keys and callback URL.
